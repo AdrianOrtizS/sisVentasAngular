@@ -1,0 +1,60 @@
+
+<div class="content-wrapper">
+    
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="card-title">{{producto.nombre}}</h1>
+                <div class="media">
+                    <div  *ngIf="producto.foto" class="mt-2 mb-3 ml-1">
+                        <td><img src="{{url + '/producto/image/get/' + producto.foto}}" class="mediana"></td>
+                    </div>  
+                    <div  *ngIf="!producto.foto" class="mt-2 mb-3 ml-5">
+                        <td><img src="/assets/img/sin-imagen.png" class="mediana"></td>
+                    </div>  
+                                       
+                    <div class="media-body">
+                        <p class="font-weight-bold ml-5">Tipo</p> 
+                            <p class="card-text ml-5">{{producto.tipoproducto}}</p>
+                        <p class="font-weight-bold ml-5">Codigo</p> 
+                            <p class="card-text ml-5">{{producto.codigo}}</p>
+                        
+                        <p class="font-weight-bold ml-5">Stock</p> 
+                            <p class="card-text ml-5 inactivo" *ngIf="producto.stock <= producto.stockminimo">
+                                
+                                    {{producto.stock}}
+                                
+                            </p>
+                            <p class="card-text ml-5 " *ngIf="producto.stock > producto.stockminimo">
+                                {{producto.stock}}
+                            </p>
+
+                        <p class="font-weight-bold ml-5">Stock minimo</p> 
+                            <p class="card-text ml-5">{{producto.stockminimo}}</p>
+
+                        <p class="font-weight-bold ml-5">Precio</p> 
+                            <p class="card-text ml-5">{{producto.precio}}</p>
+ 
+                        <p class="font-weight-bold ml-5">Iva</p>
+                            <p class="card-text ml-5" *ngIf="producto.iva">
+                                Si
+                            </p>
+                            <p class="card-text ml-5" *ngIf="!producto.iva">
+                                No
+                            </p>
+                    </div>
+                </div>
+
+
+                <a [routerLink]="['/producto']" class="btn btn-primary float-right" title="Cancelar y regresar">
+                    <i class="icon-arrow-left"></i>
+                </a>
+
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+ 

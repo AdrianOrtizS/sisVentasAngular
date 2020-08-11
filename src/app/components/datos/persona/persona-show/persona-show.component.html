@@ -1,0 +1,45 @@
+
+<div class="content-wrapper">
+    
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="card-title">{{persona.nombre}}</h1>
+                <div class="media">
+                    <div  *ngIf="persona.foto" class="mt-2 mb-3 ml-1">
+                        <td><img src="{{url + '/persona/image/get/' + persona.foto}}" class="mediana"></td>
+                    </div>  
+                    <div  *ngIf="!persona.foto" class="mt-2 mb-3 ml-5">
+                        <td><img src="/assets/img/sin-imagen.png" class="mediana"></td>
+                    </div>  
+                                       
+                    <div class="media-body">
+                        <p class="font-weight-bold ml-5">Identificador</p> 
+                            <p class="card-text ml-5">{{persona.identificador}}</p>
+                        <p class="font-weight-bold ml-5">Direccion</p> 
+                            <p class="card-text ml-5">{{persona.direccion}}</p>
+                        
+                        <p class="font-weight-bold ml-5">Telefono</p> 
+                            <p class="card-text ml-5">{{persona.telefono}}</p>
+                            
+
+                        <p *ngIf="persona.celular" class="font-weight-bold ml-5">Celular</p> 
+                            <p *ngIf="persona.celular" class="card-text ml-5">{{persona.celular}}</p>    
+                    
+                    </div>
+                </div>
+
+
+                <a [routerLink]="['/persona']" class="btn btn-primary float-right" title="Cancelar y regresar">
+                    <i class="icon-arrow-left"></i>
+                </a>
+
+
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+ 

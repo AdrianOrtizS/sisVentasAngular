@@ -1,0 +1,257 @@
+
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{page_title}}</h4>
+                    <p class="card-description"> Ingrese informacion</p>
+
+                        <form #ventaForm="ngForm" (ngSubmit)="onSubmit(ventaForm)" class="col-md-12 ml-0 pl-0">
+                            <div class="container-fluid">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <div class="form-group row border">
+                                            
+                                            <div class="col-md-4">
+                                                <label for="persona">Persona</label>
+                                                <select name="persona" #pro="ngModel" [(ngModel)]="venta.idpersona" class="form-control" required>
+                                                    <option value=0>
+                                                        --Seleccione--
+                                                    </option>
+                                                    <option *ngFor="let pro of persona"  value="{{pro.id}}">
+                                                        {{pro.nombre}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+
+
+
+                                            <div class="col-md-4">
+                                                <label for="numcomprobante"># Comprobante</label>
+                                                <input readonly type="number" name="numcomprobante" #numcomprobante="ngModel" [(ngModel)]="venta.numcomprobante"  class="form-control text-right" required/>        
+                                                <small *ngIf="!numcomprobante.valid && numcomprobante.touched" class="invalid-feedback d-block">
+                                                    Ingrese numero de comprobante
+                                                </small>
+                                            </div>
+                                        
+                                            <div class="col-md-4">
+                                                <label for="">Fecha: </label>
+                                                <output class="form-control" readonly>{{fecha}}</output>  
+                                      <!--      <input type="date"  name="fecha" #fecha="ngModel" [(ngModel)]="venta.fecha"  class="form-control" required/>        
+                                                <small *ngIf="!fecha.valid && fecha.touched" class="invalid-feedback d-block">
+                                                    Ingrese fecha de comprobante
+                                                </small>
+                                      -->          
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="form-group row border">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Artículo <span style="color:red;" [hidden]="!validarproducto">(*Seleccione)</span></label>
+                                                    <div class="form-inline">
+                                     
+                                                    <input type="text" class="form-control" (keyup)="buscarproductocodigo(producto.codigo)" 
+                                                                    name="codigo" #codigo="ngModel" [(ngModel)]="producto.codigo"  placeholder="Ingrese codigo producto">
+                                     
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#abrirModal'"><i class="fa fa-search" aria-hidden="true"></i></button>
+                              
+                                                    <input type="text" readonly class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="producto.nombre">
+                                                
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Precio <span style="color:red;" [hidden]="!validarprecio" >(Ingrese precio)</span></label>
+                                                    <input type="number" name="precio2"  [(ngModel)]="precio2"  value="0" step="any"  class="form-control" >
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Cantidad <span style="color:red;" [hidden]="!validarcantidad">(Ingrese cantidad)</span></label>
+                                                    <input type="number" name="cantidad2" [(ngModel)]="cantidad2" value="0"  class="form-control" >
+                                                </div>
+                                            </div>
+
+                                           
+
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <button  class="btn btn-success form-control btnagregar" (click)="agregardetalle($event)">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row border">
+                                            <div class="table-responsive col-md-12">
+                                                <table class="table table-bordered table-striped table-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Opciones</th>
+                                                            <th>Artículo</th>
+                                                            <th>Precio</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Descuento %</th>
+                                                            <th>Subtotal</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngIf="arrayDetalle.length > 0">
+                                                        <tr  *ngFor="let detalle of arrayDetalle ; let ind=index">
+                                                            <td>
+                                                                <button (click)="eliminardetalle(ind)" type="button" class="btn btn-danger btn-sm">
+                                                                    <i class="fa fa-window-close-o" aria-hidden="true"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td  >
+                                                                {{ind}}
+                                                                {{arrayDetalle[ind].producto}}
+                                                            </td>
+                                                            <td>
+                                                                <input required name="precio{{ind}}" #precio="ngModel" [(ngModel)]="arrayDetalle[ind].precio" type="number"  class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input required name="cantidad{{ind}}" #cantidad="ngModel" [(ngModel)]="arrayDetalle[ind].cantidad" type="number"  class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input required name="descuento{{ind}}" #descuento="ngModel" [(ngModel)]="arrayDetalle[ind].descuento" type="number"  class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                {{arrayDetalle[ind].precio * arrayDetalle[ind].cantidad  | number : '1.2-2'}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="background-color: #CEECF5;">
+                                                            <td colspan="5" align="right"><strong>Subtotal:</strong></td>
+                                                            <td>$ {{ valsubtotal[0]   | number : '1.2-2'}}</td>
+                                                        </tr>
+                                                        <tr style="background-color: #CEECF5;">
+                                                            <td colspan="5" align="right"><strong>Descuento:</strong></td>
+                                                            <td>$ {{ valsubtotal[1]   | number : '1.2-2'}}</td>
+                                                        </tr>
+                                                        <tr style="background-color: #CEECF5;">
+                                                            <td colspan="5" align="right"><strong>Iva 0 :</strong></td>
+                                                            <td>$ {{ valsubtotal[2]  | number : '1.2-2'}}</td>
+                                                        </tr>
+                                                        <tr style="background-color: #CEECF5;">
+                                                            <td colspan="5" align="right"><strong>Iva {{iva}}:</strong></td>
+                                                            <td>$ {{ valsubtotal[3]  | number : '1.2-2'}}</td>
+                                                        </tr>
+                                                        <tr style="background-color: #CEECF5;">
+                                                            <td colspan="5" align="right"><strong>Total:</strong></td>
+                                                            <td>$ {{ valsubtotal[4]   | number : '1.2-2' }}</td>
+                                                        </tr>
+                                                    </tbody>
+
+                                                    <tbody *ngIf="arrayDetalle.length <= 0">
+                                                        <tr>
+                                                            <td colspan="5">
+                                                            <h2>   No hay datos para mostrar.</h2> 
+                                                            </td>
+                                                        </tr>    
+                                                    </tbody>
+
+
+                                                        <!--   MODAL AGREGAR DETALLES   -->
+                                                        <!--///////////////////////////-->
+                                                        <!--///////////////////////////-->
+                                                        <div class="modal fade" id="{{'abrirModal'}}" tabindex="-1" role="dialog" aria-labelledby="abrirModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="abrirModalLabel" >   Seleccione articulos</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                <div class="modal-body">
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="input-group">
+                                                                              <!--  <label for="">Articulo: </label> -->
+                                                                                <input type="text" class="form-control"       (keyup)="buscarproductonombre(producto.nombre, $event)" name="nombre2" #nombre2="ngModel" [(ngModel)]="producto.nombre"    placeholder="Texto a buscar">
+                                                                                <button type="submit" class="btn btn-primary" (click)="buscarproductonombre(producto.nombre, $event)"><i class="fa fa-search"></i> Buscar</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="table-response">
+                                                                        <table class="table table-striped table-responsive" >
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th scope="col">#</th>
+                                                                                    <th scope="col">Nombre</th>
+                                                                                    <th scope="col">Precio</th>
+                                                                                    <th scope="col">Stock</th>
+                                                                                    <th scope="col">Tipo</th>
+                                                                                    <th scope="col">Opciones</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody >
+                                                                            <tr *ngFor="let prod of productos | paginate: { itemsPerPage: 4, currentPage: p }">
+                                                                                <td>{{prod.id}}</td>
+                                                                                <td>{{prod.nombre}}</td>
+                                                                                <td>{{prod.precio}}</td>
+                                                                                <td>{{prod.stock}}</td>
+                                                                                <td>{{prod.tipo}}</td>
+                                                                                <td>
+                                                                                    <div class="proveedor-buttons">
+                                                                                        <a class="btn btn-info mr-1" (click)="agregarDetalleModal(prod)"   ><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                        <pagination-controls (pageChange)="p = $event" 
+                                                                            previousLabel="Ant" nextLabel="Sig">
+                                                                        </pagination-controls>
+                                            
+                                                                    </div>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <!--///////////////////////////-->
+                                                        <!--///////////////////////////-->
+                                                                    
+                                        
+                                                </table>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-12" *ngIf="arrayDetalle.length > 0 && venta.idventa != 0">
+                                            
+                                                <input type="submit" value="Guardar" class="btn btn-success" [disabled]="ventaForm.invalid">
+                                            
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>  
+</div>
+
+
+

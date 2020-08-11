@@ -1,0 +1,55 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+    
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{page_title}}</h2>
+            
+
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th> Id </th>
+                                        <th> Descripcion </th>
+                                        <th> Valor </th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let con of configuracion | paginate: { itemsPerPage: 4, currentPage: p }">
+                                        <td>{{con.id}} </td>
+                                        <td>{{con.descripcion}}</td>
+                                        <td>{{con.valor}}</td>
+                                        
+                                        <td>
+                                            <a class="btn btn-warning mr-1" [routerLink]="['/actualizarconfiguracion', con.id]" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+                
+                
+                
+                                        </td>
+                 
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <pagination-controls (pageChange)="p = $event" 
+                                previousLabel="Ant"
+                                nextLabel="Sig"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>

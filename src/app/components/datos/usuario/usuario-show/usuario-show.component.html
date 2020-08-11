@@ -1,0 +1,44 @@
+
+<div class="content-wrapper">
+    
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="card-title">{{usuario.name}} {{usuario.surname}}</h1>
+                <div class="media">
+                    <div  *ngIf="usuario.image" class="mt-2 mb-3 ml-1">
+                        <td><img src="{{url + '/usuario/image/get/' + usuario.image}}" class="mediana"></td>
+                    </div>  
+                    <div  *ngIf="!usuario.image" class="mt-2 mb-3 ml-5">
+                        <td><img src="/assets/img/sin-imagen.png" class="mediana"></td>
+                    </div>  
+                                       
+                    <div class="media-body">
+                        <p class="font-weight-bold ml-5">Identificador</p> 
+                            <p class="card-text ml-5">{{usuario.identificador}}</p>
+                        <p class="font-weight-bold ml-5">Rol</p> 
+                            <p class="card-text ml-5">{{usuario.role}}</p>
+                        <p class="font-weight-bold ml-5">E-mail</p> 
+                            <p class="card-text ml-5">{{usuario.email}}</p>
+                        <p class="font-weight-bold ml-5">Descripcion</p> 
+
+                           <p [froalaView]="usuario.description" class="card-text ml-5"></p>
+                           
+                    
+                    </div>
+                </div>
+
+
+                <a [routerLink]="['/usuario']" class="btn btn-primary float-right" title="Cancelar y regresar">
+                    <i class="icon-arrow-left"></i>
+                </a>
+
+
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+
+ 

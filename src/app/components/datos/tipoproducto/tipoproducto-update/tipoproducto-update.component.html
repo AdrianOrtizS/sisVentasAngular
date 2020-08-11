@@ -1,0 +1,35 @@
+
+<div class="content-wrapper">
+    <div class="row">
+
+
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{page_title}}</h4>
+                <p class="card-description"> Actualizar informacion</p>
+                
+                <form #tipoproductoForm="ngForm" (ngSubmit)="onSubmit(tipoproductoForm)" class="col-md-5 ml-0 pl-0 forms-sample">
+                    <div class="form-group">
+                        <label for="descripcion">Descripcion</label>
+                        <input type="text" name="descripcion" #descripcion="ngModel" [(ngModel)]="tipoproducto.descripcion" class="form-control" placeholder="Ingrese descripcion....." required/>        
+                        <small *ngIf="!descripcion.valid && descripcion.touched" class="invalid-feedback d-block">
+                            Editar descripcion
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-success" [disabled]="tipoproductoForm.invalid" title="Guardar">
+                        <i class="icon-check"></i>
+                    </button>
+                    
+                    <a [routerLink]="['/tipoproducto']" class="btn btn-danger" title="Cancelar y regresar">
+                        <i class="icon-close"></i>
+                    </a>
+                </form>
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>

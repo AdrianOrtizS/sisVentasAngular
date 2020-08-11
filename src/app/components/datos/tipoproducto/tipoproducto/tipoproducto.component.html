@@ -1,0 +1,154 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+    
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{page_title}}</h2>
+                <div class="form-group row">
+                
+      
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                        <a class="btn btn-primary" title="Nuevo" [routerLink]="['/nuevotipoproducto']">
+                            <i class="icon-plus"></i>
+                        </a>
+                    </div>    
+      
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                        <div class="input-group">
+                         <!--   <label for=""><h5> Buscar: </h5>&nbsp; </label> -->
+                            <input type="text" class="form-control"   (keyup.enter)="buscartipoproducto(tipoproducto.descripcion, $event)" name="tipoproducto2" #tipoproducto2="ngModel" [(ngModel)]="tipoproducto.descripcion" placeholder="Buscar ...">
+                            <button type="submit" class="btn btn-primary" (click)="buscartipoproducto(tipoproducto.descripcion, $event)">
+                                <i class="fa fa-search"></i> 
+                            </button>
+                    
+                        </div>
+                    </div>
+                
+            
+                </div>    
+
+
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th> Id </th>
+                                        <th> Descripcion </th>
+                                        <th> Estado </th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let tipo of tipoproductos | paginate: { itemsPerPage: 4, currentPage: p }">
+                                        <td>{{tipo.id}} </td>
+                                        <td>{{tipo.descripcion}}</td>
+                                        
+                                        
+                                        <td>
+                                            <div *ngIf="tipo.condicion == 1" class="activo">
+                                              Activo
+                                            </div> 
+                                            <div *ngIf="tipo.condicion == 0" class="inactivo">
+                                              Inactivo
+                                            </div> 
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-info mr-1" [routerLink]="['/vertipoproducto', tipo.id]" data-toggle="tooltip" data-placement="top" title="Ver">
+                                                <i class="icon-eye"></i>
+                                              </a>
+                                              <a class="btn btn-warning mr-1" [routerLink]="['/actualizartipoproducto', tipo.id]" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                <i class="icon-pencil"></i>
+                                              </a>
+                
+                                                <!-- Button trigger modal -->                 
+                                                <button type="button" class="btn btn-danger" title="Desactivar" data-toggle="modal" [attr.data-target]="'#tipoproductoModal'+tipo.id"  *ngIf="tipo.condicion == 1" >
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="{{'tipoproductoModal'+tipo.id}}" tabindex="-1" role="dialog" aria-labelledby="tipoproductoModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="tipoproductoModalLabel">¿Desactivar?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        Vas a desactivar {{tipo.descripcion}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" title="Cancelar" data-dismiss="modal">
+                                                            <i class="icon-close"></i>
+                                                        </button>
+                                                        
+                                                        <a class="btn btn-danger "  data-dismiss="modal"  (click)="activardesactivartipoproducto(tipo.id)"  data-toggle="tooltip" data-placement="top" title="desactivar">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Fin Modal -->
+                
+                
+                 
+                                                <!-- Button trigger modal -->                 
+                                                <button type="button" class="btn btn-primary" title="Activar" data-toggle="modal" [attr.data-target]="'#tipoproductoModal2'+tipo.id"  *ngIf="tipo.condicion == 0" >
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="{{'tipoproductoModal2'+tipo.id}}" tabindex="-1" role="dialog" aria-labelledby="tipoproductoModal2Label" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="tipoproductoModal2Label">¿Activar?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        Vas a activar {{tipo.descripcion}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" title="Cancelar" data-dismiss="modal">
+                                                            <i class="icon-close"></i>
+                                                        </button>
+                                                        
+                                                        <a class="btn btn-primary " data-dismiss="modal"  (click)="activardesactivartipoproducto(tipo.id)"  data-toggle="tooltip" data-placement="top" title="Activar">
+                                                            <i class="fa fa-check"></i>
+                                                        </a>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Fin Modal -->
+                  
+                
+                                              
+                              
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <pagination-controls (pageChange)="p = $event" 
+                                previousLabel="Ant"
+                                nextLabel="Sig"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            
+                
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>

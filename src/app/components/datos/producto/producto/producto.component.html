@@ -1,0 +1,171 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+    
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{page_title}}</h2>
+                <div class="form-group row">
+                
+      
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <a class="btn btn-primary" title="Nuevo" [routerLink]="['/nuevoproducto']">
+                            <i class="icon-plus"></i> 
+                        </a>
+                    </div>    
+      
+                                   
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 ">
+                        <div class="input-group">
+                         <!--   <label for=""><h5> Buscar: </h5>&nbsp; </label> -->
+                            <input type="text" class="form-control"   (keyup.enter)="buscarproducto(producto.nombre, $event)" name="producto2" #producto2="ngModel" [(ngModel)]="producto.nombre" placeholder="Buscar ...">
+                            <button type="submit" class="btn btn-primary" (click)="buscarproducto(producto.nombre, $event)">
+                                <i class="fa fa-search"></i> 
+                            </button>
+                    
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 text-right">
+                        <button type="button" class="btn btn-inverse-light btn-fw btn-icon-text" (click)="productoPdf()">
+                          <i class="icon-arrow-down-circle btn-icon-prepend"></i> Descargar 
+                        </button>
+                    </div>
+            
+                </div>
+                
+                
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th> Id </th>
+                                        <th> Nombre </th>
+                                        <th> Tipo</th>
+                                        <th> Stock</th>
+                                        <th> Precio</th>
+                                        <th> Estado </th>
+                                        <th>Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let pro of producto | paginate: { itemsPerPage: 4, currentPage: p }">
+                                        <td>{{pro.id}} </td>
+                                        <td>{{pro.nombre}}</td>
+                                        <td>{{pro.tipo}}</td>
+                                        <td>
+                                            <div *ngIf="pro.stock <= pro.stockminimo" class="inactivo">
+                                                {{pro.stock}}
+                                            </div> 
+                                            <div *ngIf="pro.stock > pro.stockminimo" >
+                                                {{pro.stock}}
+                                            </div> 
+                                                                                    
+                                        </td>
+                                        <td>{{pro.precio}}</td>
+                                        
+                                        <td>
+                                            <div *ngIf="pro.condicion == 1" class="activo">
+                                              Activo
+                                            </div> 
+                                            <div *ngIf="pro.condicion == 0" class="inactivo">
+                                              Inactivo
+                                            </div> 
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-info mr-1" [routerLink]="['/verproducto', pro.id]" data-toggle="tooltip" data-placement="top" title="Ver">
+                                                <i class="icon-eye"></i>
+                                              </a>
+                                              <a class="btn btn-warning mr-1" [routerLink]="['/actualizarproducto', pro.id]" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                <i class="icon-pencil"></i>
+                                              </a>
+                
+                                                <!-- Button trigger modal -->                 
+                                                <button type="button" class="btn btn-danger" title="Desactivar" data-toggle="modal" [attr.data-target]="'#productoModal'+pro.id"  *ngIf="pro.condicion == 1" >
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="{{'productoModal'+pro.id}}" tabindex="-1" role="dialog" aria-labelledby="productoModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="productoModalLabel">¿Desactivar?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        Vas a desactivar {{pro.nombre}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" title="Cancelar" data-dismiss="modal">
+                                                            <i class="icon-close"></i>
+                                                        </button>
+                                                        
+                                                        <a class="btn btn-danger "  data-dismiss="modal"  (click)="activardesactivarproducto(pro.id)"  data-toggle="tooltip" data-placement="top" title="desactivar">
+                                                            <i class="fa fa-trash"></i>
+                                                        </a>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Fin Modal -->
+                
+                
+                 
+                                                <!-- Button trigger modal -->                 
+                                                <button type="button" class="btn btn-primary" title="Activar" data-toggle="modal" [attr.data-target]="'#productoModal2'+pro.id"  *ngIf="pro.condicion == 0" >
+                                                    <i class="fa fa-check"></i>
+                                                </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="{{'productoModal2'+pro.id}}" tabindex="-1" role="dialog" aria-labelledby="productoModal2Label" aria-hidden="true">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="productoModal2Label">¿Activar?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                        Vas a activar {{pro.nombre}}
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" title="Cancelar" data-dismiss="modal">
+                                                            <i class="icon-close"></i>
+                                                        </button>
+                                                        
+                                                        <a class="btn btn-primary " data-dismiss="modal"  (click)="activardesactivarproducto(pro.id)"  data-toggle="tooltip" data-placement="top" title="Activar">
+                                                            <i class="fa fa-check"></i>
+                                                        </a>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Fin Modal -->
+                                               
+                              
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                                <pagination-controls (pageChange)="p = $event" 
+                                previousLabel="Ant"
+                                nextLabel="Sig"></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            
+                
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>

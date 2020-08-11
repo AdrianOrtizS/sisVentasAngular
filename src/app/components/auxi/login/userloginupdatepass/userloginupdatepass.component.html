@@ -1,0 +1,48 @@
+
+<div class="content-wrapper">
+    <div class="row">
+
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{page_title}}</h4>
+                <p class="card-description"> Modifica tu informacion</p>
+                
+                <form #usuarioForm="ngForm" (ngSubmit)="onSubmit(usuarioForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample">
+                    
+             
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="password">Clave</label>
+                        <input type="password" name="password" #password="ngModel" [(ngModel)]="usuario.password" class="form-control" placeholder="Ingrese nueva clave....." required/>        
+                        <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block">
+                            Ingrese clave
+                        </small>
+                    </div>
+
+                    
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="password2">Repetir clave</label>
+                        <input type="password" name="password2" id="password2"  class="form-control" placeholder="Repita clave....." required/>        
+                        <small  class="invalid-feedback d-block">
+                            Repita clave
+                        </small>
+                    </div>
+
+                    
+                    
+                    <button type="submit" class="btn btn-success" [disabled]="usuarioForm.invalid" title="Guardar">
+                        <i class="icon-check"></i>
+                    </button>
+                    
+                    
+                    <a  class="btn btn-primary" [routerLink]="['/inicio']" title="Cancelar y regresar">
+                        <i class="icon-close"></i>
+                    </a>
+                </form>
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>

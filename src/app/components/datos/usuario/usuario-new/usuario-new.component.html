@@ -1,0 +1,110 @@
+
+<div class="content-wrapper">
+    <div class="row">
+
+
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{page_title}}</h4>
+                <p class="card-description"> Ingrese informacion</p>
+                
+                <form #usuarioForm="ngForm" (ngSubmit)="onSubmit(usuarioForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample">
+                    
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="name">Nombre</label>
+                        <input type="text" name="name" #name="ngModel" [(ngModel)]="usuario.name" class="form-control" placeholder="Ingrese nombre....." required/>        
+                        <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+                            Ingrese nombre
+                        </small>
+                    </div>
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="surname">Apellido</label>
+                        <input type="text" name="surname" #surname="ngModel" [(ngModel)]="usuario.surname" class="form-control" placeholder="Ingrese apellido....." required/>        
+                        <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">
+                            Ingrese apellido
+                        </small>
+                    </div>
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="email">E-mail</label>
+                        <input type="text" name="email" #email="ngModel" [(ngModel)]="usuario.email" class="form-control" placeholder="Ingrese email....." required/>        
+                        <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+                            Ingrese email
+                        </small>
+                    </div>
+
+                    
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="identificador">Identificador</label>
+                        <input type="text" name="identificador" #identificador="ngModel" [(ngModel)]="usuario.identificador" class="form-control" placeholder="Ingrese identificador....." required/>        
+                        <small *ngIf="!identificador.valid && identificador.touched" class="invalid-feedback d-block">
+                            Ingrese identificador
+                        </small>
+                    </div>
+
+
+
+                    <div class="form-group col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                        <label for="role">Rol</label>
+                        <select name="role" [(ngModel)]="usuario.role" class="form-control" required>
+                                <option [value]="item" *ngFor="let item of lista">{{item}}</option>
+                        </select>
+                    </div>
+        
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="description">Descripcion</label>
+                        
+                        <textarea [froalaEditor]="froala_options" name="description" #description="ngModel" [(ngModel)]="usuario.description">
+                        </textarea>
+
+                    </div>
+
+
+
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="image" > Foto</label>
+                        <div  *ngIf="usuario.image" class="mt-2 mb-3 ml-5">
+                            <td><img src="{{url + '/usuario/image/get/' + usuario.image}}" class="mediana"></td>
+                        </div>  
+                        <div  *ngIf="!usuario.image" class="mt-2 mb-3 ml-5">
+                            <td><img src="/assets/img/sin-imagen.png" class="mediana"></td>
+                        </div>  
+                        
+                        <angular-file-uploader 
+                            [config]="afuConfig"
+                            [resetUpload]=resetVar
+                            (ApiResponse)="imageUpload($event)">
+                        </angular-file-uploader>
+                    </div>
+
+
+
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <button type="submit" class="btn btn-success" [disabled]="usuarioForm.invalid" title="Guardar">
+                        <i class="icon-check"></i>
+                    </button>
+                    
+                    <a [routerLink]="['/usuario']" class="btn btn-primary" title="Cancelar y regresar">
+                        <i class="icon-close"></i>
+                    </a>
+                </form>
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>

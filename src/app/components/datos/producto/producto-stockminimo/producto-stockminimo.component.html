@@ -1,0 +1,15 @@
+
+
+<div class="content-wrapper scroll">
+    <ul class="list-group mb-2"  >
+        <h6 >{{page_title}}</h6>
+        <li *ngFor="let pro of producto " class="list-group-item d-flex justify-content-between align-items-center ml-0 mr-0">
+            {{pro.nombre}}
+            <span class="badge badge-primary badge-pill">
+                {{pro.stock}}
+            </span>
+        </li>
+    </ul>
+</div>
+
+               

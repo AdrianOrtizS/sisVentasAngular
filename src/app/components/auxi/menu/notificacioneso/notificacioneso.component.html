@@ -1,0 +1,76 @@
+
+<li class="nav-item dropdown">
+    <a class="nav-link count-indicator message-dropdown" id="messageDropdown" href="/" data-toggle="dropdown" aria-expanded="false">
+      
+      <i class="icon-speech">
+        <span class="count" *ngIf="unread>0"> {{unread - stock}} </span>
+        <span class="count" *ngIf="unread>0 && identity.role=='Administrador'"> {{unread - (stock -1)}} </span>
+      </i>
+
+    </a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
+      <!--Encabezado de notificaciones-->
+      <a class="dropdown-item py-3">
+        <p class="mb-0 font-weight-medium float-left">
+          Notificaciones sin leer.  
+        </p>
+<!--        <span class="badge badge-pill badge-primary float-right">Ver todas</span>   -->
+      </a>
+      <div class="dropdown-divider"></div>
+      
+      
+      <li *ngIf="ventas > 0" >
+        
+        <a class="dropdown-item preview-item">
+          
+          <div class="preview-thumbnail">
+            <img src="./../../../../../assets/img/vent.png" alt="image" class="img-sm profile-pic"> 
+          </div>
+
+          <div class="preview-item-content flex-grow py-2">
+            <p class="preview-subject ellipsis font-weight-medium text-dark"> VENTAS {{ventas}}  </p>
+            <p class="font-weight-light small-text"> ULTIMO 2020-12-12   </p>
+          </div>
+
+        </a>  
+      </li>
+
+      <li *ngIf="ingresos > 0">
+        
+        <a class="dropdown-item preview-item">
+          
+          <div class="preview-thumbnail">
+            <img src="./../../../../../assets/img/compr.png" alt="image" class="img-sm profile-pic"> 
+          </div>
+
+          <div class="preview-item-content flex-grow py-2">
+            <p class="preview-subject ellipsis font-weight-medium text-dark"> INGRESOS {{ingresos}}  </p>
+            <p class="font-weight-light small-text"> ULTIMO 2020-12-12   </p>
+          </div>
+
+        </a>  
+      </li>
+
+
+      <li *ngIf="productos > 0">
+        
+        <a class="dropdown-item preview-item">
+          
+          <div class="preview-thumbnail">
+            <img src="./../../../../../assets/img/prodcom.png" alt="image" class="img-sm profile-pic"> 
+          </div>
+
+          <div class="preview-item-content flex-grow py-2">
+            <p class="preview-subject ellipsis font-weight-medium text-dark"> STOCK MINIMO {{productos}}  </p>
+            <p class="font-weight-light small-text"> VERIFICA   </p>
+          </div>
+
+        </a>  
+      </li>
+
+        <button (click)="notifymarkAsRead()" *ngIf="unread>0">
+            Marcar todas como leidas
+        </button>
+
+    </div>
+  </li>

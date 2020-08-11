@@ -1,0 +1,122 @@
+
+<div class="content-wrapper">
+    <div class="row">
+
+
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">{{page_title}}</h4>
+                <p class="card-description"> Ingrese informacion</p>
+                
+                <form #productoForm="ngForm" (ngSubmit)="onSubmit(productoForm)" class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ml-0 pl-0 forms-sample">
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="tipoproducto">Tipo producto</label>
+                        <select name="idtipo" #idtipo="ngModel" [(ngModel)]="producto.idtipo" class="form-control">
+                            <option value=0>
+                                --Seleccione--
+                            </option>
+                            <option *ngFor="let tipo of tipoproducto"  value="{{tipo.id}}">
+                                {{tipo.descripcion}}
+                            </option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="producto.nombre" class="form-control" placeholder="Ingrese producto....." required/>        
+                        <small *ngIf="!nombre.valid && nombre.touched" class="invalid-feedback d-block">
+                            Ingrese nombre
+                        </small>
+                    </div>
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="codigo">Codigo</label>
+                        <input type="text" name="codigo" #codigo="ngModel" [(ngModel)]="producto.codigo" class="form-control" placeholder="Ingrese codigo....." required/>        
+                        <small *ngIf="!codigo.valid && codigo.touched" class="invalid-feedback d-block">
+                            Ingrese codigo
+                        </small>
+                    </div>
+
+
+
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="stock">Stock</label>
+                        <input type="text" name="stock" #stock="ngModel" [(ngModel)]="producto.stock" class="form-control" placeholder="Ingrese stock....." required/>        
+                        <small *ngIf="!stock.valid && stock.touched" class="invalid-feedback d-block">
+                            Ingrese stock
+                        </small>
+                    </div>
+
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="stockminimo">Stock minimo</label>
+                        <input type="text" name="stockminimo" #stockminimo="ngModel" [(ngModel)]="producto.stockminimo" class="form-control" placeholder="Ingrese stock minimo....." required/>        
+                        <small *ngIf="!stockminimo.valid && stockminimo.touched" class="invalid-feedback d-block">
+                            Ingrese stock minimo
+                        </small>
+                    </div>
+
+
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="precio">Precio</label>
+                        <input type="text" name="precio" #precio="ngModel" [(ngModel)]="producto.precio" class="form-control" placeholder="Ingrese precio....." required/>        
+                        <small *ngIf="!precio.valid && precio.touched" class="invalid-feedback d-block">
+                            Ingrese precio
+                        </small>
+                    </div>
+
+
+                    <div class="form-group col-sm-5 col-md-5 col-lg-6 col-xl-6">
+                        <label for="iva">Iva</label>
+                        <input type="checkbox" name="iva" #iva="ngModel" [(ngModel)]="producto.iva" class="form-control" placeholder="Ingrese iva....." />        
+                   <!--     <small *ngIf="!iva.valid && iva.touched" class="invalid-feedback d-block">
+                            Ingrese iva
+                        </small>   -->
+                    </div>
+
+
+                    
+                    <div class="form-group col-sm-10 col-md-10 col-lg-12 col-xl-12">
+                        <label for="foto" > Foto</label>
+                        <div  *ngIf="producto.foto" class="mt-2 mb-3 ml-5">
+                            <td><img src="{{url + '/producto/image/get/' + producto.foto}}" class="mediana"></td>
+                        </div>  
+                        <div  *ngIf="!producto.foto" class="mt-2 mb-3 ml-5">
+                            <td><img src="/assets/img/sin-imagen.png" class="mediana"></td>
+                        </div>  
+                        
+                        <angular-file-uploader 
+                            [config]="afuConfig"
+                            [resetUpload]=resetVar
+                            (ApiResponse)="imageUpload($event)">
+                        </angular-file-uploader>
+                    </div>
+
+
+
+
+
+
+                    
+                    
+                    
+                    
+                    <button type="submit" class="btn btn-success" [disabled]="productoForm.invalid" title="Guardar">
+                        <i class="icon-check"></i>
+                    </button>
+                    
+                    <a [routerLink]="['/producto']" class="btn btn-primary" title="Cancelar y regresar">
+                        <i class="icon-close"></i>
+                    </a>                  
+                  </form>
+            </div>
+            </div>
+        </div>
+    
+
+    </div>
+</div>

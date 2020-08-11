@@ -1,0 +1,120 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+    
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">{{page_title}}</h2>
+                <div class="form-group row">
+             
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                        <a class="btn btn-primary" title="Nuevo" [routerLink]="['/nuevaventa']">
+                            <i class="icon-plus"></i>
+                        </a>
+                    </div>    
+      
+                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 ">
+                        <div class="input-group">
+                         <!--   <label for=""><h5> Buscar: </h5>&nbsp; </label> -->
+                            <input type="text" class="form-control"   (keyup.enter)="buscarventa(venta.numcomprobante, $event)" name="venta2" #venta2="ngModel" [(ngModel)]="venta.numcomprobante" placeholder="Buscar ...">
+                            <button type="submit" class="btn btn-primary" (click)="buscarventa(venta.numcomprobante, $event)">
+                                <i class="fa fa-search"></i> 
+                            </button>
+                    
+                        </div>
+                    </div>                
+            
+                </div>    
+            
+                <div class="form-group row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 ">
+                        <div class="table-responsive">
+      
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Cliente</th>
+                                        <th scope="col">Fecha Venta</th>
+                                        <th scope="col"># Comprobante</th>
+                                        <th scope="col">Vendedor</th>
+                                        <th scope="col">Subtotal</th>
+                                        <th scope="col">Iva</th>
+                                        <th scope="col">Iva 0</th>
+                                        <th scope="col">Total</th>
+
+                                        <th scope="col">Estado</th>
+                                    
+                                        <th scope="col">Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let ven of ventas | paginate: { itemsPerPage: 4, currentPage: p }">
+                                        <td>{{ven.id}}</td>
+                                        <td>{{ven.nombre}}</td>
+                                        <td>{{ven.fecha}}</td>
+                                        <td>{{ven.numcomprobante}}</td>
+                                        <td>{{ven.user}}</td>
+                                        <td>{{ven.subtotal}}</td>
+                                        <td>{{ven.iva}}</td>
+                                        <td>{{ven.iva0}}</td>
+                                        <td>{{ven.total}}</td>
+                                        
+                                        <td>
+                                            <div *ngIf="ven.condicion == 1">
+                                                <div class="activo">Activo</div>
+                                            </div>
+                                            <div *ngIf="ven.condicion == 0">
+                                                <div class="inactivo">Anulado</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="persona-buttons">
+                                                <a class="btn btn-success mr-1" [routerLink]="['/verventa', ven.id]" data-toggle="tooltip" data-placement="top" title="Ver"><i class="fa fa-eye"></i></a>
+                                                <div *ngIf="ven.condicion == 1">
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" [attr.data-target]="'#anularModal'+ven.id"   >
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                                
+                                                <div class="modal fade" id="{{'anularModal'+ven.id}}" tabindex="-1" role="dialog" aria-labelledby="anularModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="anularModalLabel">¿Esta seguro de anular?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Vas a anular {{ven.numcomprobante}}
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <a class="btn btn-danger " data-dismiss="modal"  (click)="anular(ven.id)"  data-toggle="tooltip" data-placement="top" title="Eliminar">
+                                                            Anular
+                                                        </a>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <pagination-controls (pageChange)="p = $event" 
+                                        previousLabel="Ant"
+                                        nextLabel="Sig">
+                            </pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>
