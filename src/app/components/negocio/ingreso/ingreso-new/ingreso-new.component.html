@@ -15,22 +15,107 @@
 
                                         <div class="form-group row border">
                                             
-                                            <div class="col-md-4">
+                                            <div class="col-md-10">
                                                 <label for="proveedor">Proveedor</label>
-                                                <select name="proveedor" #pro="ngModel" [(ngModel)]="ingreso.idproveedor" class="form-control" required>
-                                                    <option value=0>
-                                                        --Seleccione--
-                                                    </option>
+                                                
+                                                <!-- <select  name="proveedor"  #pro="ngModel" [(ngModel)]="ingreso.idproveedor" 
+                                                              class="form-control" required>
                                                     <option *ngFor="let pro of proveedor"  value="{{pro.id}}">
                                                         {{pro.nombre}}
                                                     </option>
-                                                </select>
+                                                </select> -->
+
+                                                <div class="form-inline">
+                                                    <input type="text" class="form-control" name="nombre3" #nombre3="ngModel" [(ngModel)]="proveedor.nombre" readonly>
+
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#abrirModalProveedor'">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+
+                                                   <!--   MODAL AGREGAR DETALLES   -->
+                                                        <!--///////////////////////////-->
+                                                        <!--///////////////////////////-->
+                                                        <div class="modal fade" id="{{'abrirModalProveedor'}}" tabindex="-1" role="dialog" aria-labelledby="abrirModalProveedorLabel" aria-hidden="true">
+                                                            <div class="modal-dialog modal-sm"  role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="abrirModalProveedorLabel">   Seleccione proveedor</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+
+                                                                        <div class="form-group row">
+                                                                            <div class="col-md-12">
+                                                                                <div class="input-group">
+                                                                                <!--  <label for="">Articulo: </label> -->
+                                                                                    <input type="text" class="form-control"   autocomplete="off"    (keyup)="buscarproveedorombre(proveedor.nombre, $event)" name="nombre3" #nombre3="ngModel" [(ngModel)]="proveedor.nombre" placeholder="Texto a buscar">
+                                                                                    <button type="submit" class="btn btn-primary" (click)="buscarproveedorombre(proveedor.nombre, $event)"><i class="fa fa-search"></i> </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!-- <div class="table-response">
+                                                                            <table class="table table-striped table-responsive" >
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th scope="col">Nombre</th>
+                                                                                </thead>
+                                                                                <tbody >
+                                                                                <tr *ngFor="let prov of proveedores ">
+                                                                                    <td>{{prov.nombre}}</td>
+                                                                                    <td>
+                                                                                        <div class="proveedor-buttons">
+                                                                                            <a class="btn btn-info mr-1" (click)="agregarProveedorModal(prov)"   >
+                                                                                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                            
+                                                                        </div> -->
+
+
+                                                                        <!-- <div class="list-group">
+                                                                            
+                                                                            <a *ngFor="let prov of proveedores" (click)="agregarProveedorModal(prov)" class="list-group-item list-group-item-action" >
+                                                                                {{prov.nombre}}
+                                                                            </a>
+                                                                            
+                                                                        </div> -->
+
+                                                                        <ul class="list-group list-group-flush">
+                                                                            
+                                                                            <li *ngFor="let prov of proveedores"  class="list-group-item">
+                                                                                <label >
+                                                                                    {{prov.nombre}}
+                                                                                </label> 
+                                                                                <button type="button" (click)="agregarProveedorModal(prov)" class="btn btn-primary d-flex ml-auto mt-0 float-right" >
+                                                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                                                </button>
+                                                                            </li>
+                                                                            
+                                                                          </ul>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--///////////////////////////-->
+                                                        <!--///////////////////////////-->
+                                            
                                             </div>
 
+                                                                                      
 
+ 
 
-
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <label for="numcomprobante"># Comprobante</label>
                                                 <input type="number" name="numcomprobante" #numcomprobante="ngModel" [(ngModel)]="ingreso.numcomprobante"  class="form-control" required/>        
                                                 <small *ngIf="!numcomprobante.valid && numcomprobante.touched" class="invalid-feedback d-block">
@@ -38,7 +123,7 @@
                                                 </small>
                                             </div>
                                         
-                                            <div class="col-md-4">
+                                            <div class="col-md-6">
                                                 <label for="">Fecha: </label>
                                       <!--         <output class="form-control">{{fecha}}</output>  -->
                                                    <input type="date"  name="fecha" #fecha="ngModel" [(ngModel)]="ingreso.fecha"  class="form-control" required/>        
@@ -56,12 +141,12 @@
                                                     <label>Artículo <span style="color:red;" [hidden]="!validarproducto">(*Seleccione)</span></label>
                                                     <div class="form-inline">
                                      
-                                                    <input type="text" class="form-control" (keyup)="buscarproductocodigo(producto.codigo)" 
+                                                        <input type="text" class="form-control" (keyup)="buscarproductocodigo(producto.codigo)" 
                                                                     name="codigo" #codigo="ngModel" [(ngModel)]="producto.codigo"  placeholder="Ingrese codigo producto">
                                      
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" [attr.data-target]="'#abrirModal'"><i class="fa fa-search" aria-hidden="true"></i></button>
                               
-                                                    <input type="text" readonly class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="producto.nombre">
+                                                        <input type="text" readonly class="form-control" name="nombre" #nombre="ngModel" [(ngModel)]="producto.nombre">
                                                 
                                                     </div>
                                                 </div>
@@ -85,6 +170,7 @@
                                                 <div class="form-group">
                                                     <button  class="btn btn-success form-control btnagregar" (click)="agregardetalle($event)">
                                                         <i class="fa fa-plus" aria-hidden="true"></i>
+                                                        
                                                     </button>
                                                 </div>
                                             </div>
@@ -164,7 +250,7 @@
                                                                         <div class="col-md-12">
                                                                             <div class="input-group">
                                                                               <!--  <label for="">Articulo: </label> -->
-                                                                                <input type="text" class="form-control"       (keyup)="buscarproductonombre(producto.nombre, $event)" name="nombre2" #nombre2="ngModel" [(ngModel)]="producto.nombre"    placeholder="Texto a buscar">
+                                                                                <input type="text" class="form-control"       (keyup)="buscarproductonombre(producto.nombre, $event)" name="nombre2" #nombre2="ngModel" [(ngModel)]="producto.nombre" autocomplete="off"   placeholder="Texto a buscar">
                                                                                 <button type="submit" class="btn btn-primary" (click)="buscarproductonombre(producto.nombre, $event)"><i class="fa fa-search"></i> Buscar</button>
                                                                             </div>
                                                                         </div>
@@ -174,7 +260,7 @@
                                                                         <table class="table table-striped table-responsive" >
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th scope="col">#</th>
+                                                                                    <!-- <th scope="col">#</th> -->
                                                                                     <th scope="col">Nombre</th>
                                                                                     <th scope="col">Precio</th>
                                                                                     <th scope="col">Stock</th>
@@ -184,8 +270,8 @@
                                                                             </thead>
                                                                             <tbody >
                                                                             <tr *ngFor="let prod of productos | paginate: { itemsPerPage: 4, currentPage: p }">
-                                                                                <td>{{prod.id}}</td>
-                                                                                <td>{{prod.nombre}}</td>
+                                                                                <!-- <td>{{prod.id}}</td> -->
+                                                                                <td>{{prod.nombre | slice : 0:15}}</td>
                                                                                 <td>{{prod.precio}}</td>
                                                                                 <td>{{prod.stock}}</td>
                                                                                 <td>{{prod.tipo}}</td>
@@ -214,6 +300,7 @@
                                                         <!--///////////////////////////-->
                                                                     
                                         
+
                                                 </table>
                                             </div>
                                         </div>

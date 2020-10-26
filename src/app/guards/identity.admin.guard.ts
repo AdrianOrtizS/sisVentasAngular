@@ -16,7 +16,7 @@ export class IdentityAdminGuard implements CanActivate {
     canActivate(){
         let identity = this._usuariorService.getIdentity();
 
-        console.log(identity);
+//        console.log(identity);
 
         if(identity.role == 'Administrador'){
             return true;

@@ -45,7 +45,19 @@ export class UsuarioService {
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.post(this.url + '/usuario', params, {headers: headers});
   }
+
   
+  register(usuario):Observable<any>{
+    //limpia htmlentities a utf-8
+//    usuario.description = global.htmlEntities(usuario.description);
+    let json = JSON.stringify(usuario);
+    let params = "json="+json;
+    let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+    return this._http.post(this.url + '/register', params, {headers: headers});
+  }
+
+
+
   getusuario():Observable<any>{
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
     return this._http.get(this.url + '/usuario',  {headers: headers});

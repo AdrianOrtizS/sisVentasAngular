@@ -1,0 +1,138 @@
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">{{page_title}}</h2>
+                </div>
+
+                <form #pedidoForm="ngForm" (ngSubmit)="onSubmit(pedidoForm)" class="col-md-10  ustify-content-center align-items-center">
+                    <div class="container-fluid">
+                        <div class="card-body">
+                            <div class="row ">
+                                <div class="col-md-12 ">
+                                    <div class="table-responsive ">
+                                        <table class="table table-bordered table-striped table-sm">
+                                            <!-- <thead>
+                                                <tr>
+                                                    <th>Opciones</th>
+                                                    <th>Artículo</th>
+                                                    <th>Subtotal</th>
+                                                </tr>
+                                            </thead> -->
+                                            <tbody *ngIf="arrayDetalle.length > 0">
+                                                
+                                                <tr *ngFor="let detalle of arrayDetalle ; let ind=index" >
+                                                    <td>  
+                                                        <tr>
+                                                            <td>
+                                                                <div class="card" >
+                                                                    
+                                                                    <button (click)="eliminardetalle(ind)" type="button" class="btn btn-danger btn-md">
+                                                                        <i class="fa fa-window-close-o" aria-hidden="true"></i>
+                                                                    </button>
+            
+                                                                    <div class="card-body">
+                                                                        <div  *ngIf="detalle.foto" class="mediana " >
+                                                                            <img src="{{url + '/producto/image/get/' + detalle.foto}}" style="width:80%; height: 80%;"  >
+                                                                        </div>  
+                                                                        <div  *ngIf="!detalle.foto" class="mediana ">
+                                                                            <img src="/assets/img/sin-imagen.png" style="width:80%; height: 80%;">
+                                                                        </div>
+                                                                        <h5>{{arrayDetalle[ind].nombre | slice:0:10}}</h5>                                                            
+                                                                    </div>
+
+                                                                </div>
+                                                            </td>
+                                                            <td >
+                                                                <div class="card" >
+                                                                    <div class="card-body">
+                                                                        <ul class="list-group list-group-flush">
+                                                                            <li class="list-group-item">
+                                                                                <h5 >{{arrayDetalle[ind].precio | number : '1.2-2'}}</h5>
+                                                                            </li>
+                                                                            <li class="list-group-item"><input  name="cantidad{{ind}}" #cantidad="ngModel" [(ngModel)]="arrayDetalle[ind].cantidad" type="number"  class="form-control " required></li>
+                                                                        </ul>
+                                                                    </div>
+
+                                                                </div>
+                                        
+                                                            </td>
+                                                        </tr>
+
+                                                    </td>
+                                                    <td>
+                                                        <h4>{{arrayDetalle[ind].precio * arrayDetalle[ind].cantidad  | number : '1.2-2'}}</h4>
+                                                    </td>
+                                                </tr>
+                                                <tr style="background-color: #CEECF5;">
+                                                    <td colspan="1" align="right"><strong><h5> Subtotal:</h5></strong></td>
+                                                    <td> <h5>$ {{ valsubtotal[0]   | number : '1.2-2'}}</h5></td>
+                                                </tr>
+                                                <tr style="background-color: #CEECF5;">
+                                                    <td colspan="1" align="right"><strong> <h5>Iva 0 :</h5></strong></td>
+                                                    <td><h5>$ {{ valsubtotal[1]  | number : '1.2-2'}}</h5></td>
+                                                </tr>
+                                                <tr style="background-color: #CEECF5;">
+                                                    <td colspan="1" align="right"><strong><h5>Iva {{iva}}:</h5></strong></td>
+                                                    <td><h5>$ {{ valsubtotal[2]  | number : '1.2-2'}}</h5></td>
+                                                </tr>
+                                                <tr style="background-color: #CEECF5;">
+                                                    <td colspan="1" align="right"><strong><h5>Total:</h5></strong></td>
+                                                    <td><h5>$ {{ valsubtotal[3]   | number : '1.2-2' }}</h5></td>
+                                                </tr>
+                                          
+                                            </tbody>
+                                        </table>
+                                    </div>  
+
+                                        <div class="form-group row">
+                                            <div class="col-md-12 ">
+                                                <div class="location-map" >
+                                                    <div style="width: 100%; height: 300px;" id="map"> </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 ">
+                                                <div class="location-map" >
+                                                <h3>Referencia de lugar</h3>
+                                                <textarea class="form-control"  #referencia="ngModel" [(ngModel)]="pedido.referencia" name="referencia"  rows="2"  required  > </textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group row">
+                                            <div class="col-md-12 mt-3" >
+                                                <h3>Forma de pago</h3>
+                                                        <div class="form-check pagoClass" id="chkEfec">
+                                                        <input type="radio" class="form-check-input" id="efectivo" name="tipoPago"
+                                                                [(ngModel)]="template" [value]="Efectivo" (click)="efectivo();">
+                                                        <label class="form-check-label" for="efectivo">Efectivo</label>
+                                                        </div>
+                                                    
+                                                        <div class="form-check pagoClass" id="chkTar">
+                                                        <input type="radio" class="form-check-input" id="otro" name="tipoPago"
+                                                                [(ngModel)]="template" [value]="Otro" (click)="otro();">
+                                                        <label class="form-check-label" for="otro">Otro</label>
+                                                        </div>       
+                                                    <div #paypal id="paypal2"></div>
+                                            </div>
+                                        </div>
+                                          
+                                        <div class="form-group row">
+                                            <div class="col-md-12" *ngIf="arrayDetalle.length > 0  && fpAprove == true">
+                                                <input type="submit" value="Guardar"  class="btn btn-success btn-lg btn-block" [disabled]="pedidoForm.invalid">
+                                            </div>
+                                        </div>
+
+                                    
+                                </div>
+                            </div>        
+                        </div>
+                    </div>
+                </form>    
+            </div>    
+        </div>    
+    </div>    
+</div>    
+

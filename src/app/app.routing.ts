@@ -36,6 +36,8 @@ import { LoginComponent } from './components/auxi/login/login/login.component';
 import { UserlogineditComponent } from './components/auxi/login/userloginedit/userloginedit.component';
 import { UserloginshowComponent } from './components/auxi/login/userloginshow/userloginshow.component';
 import { UserloginupdatepassComponent } from './components/auxi/login/userloginupdatepass/userloginupdatepass.component';
+import { UserregisterComponent } from './components/auxi/login/userregister/userregister.component';
+
 
 import { IngresoComponent } from './components/negocio/ingreso/ingreso/ingreso.component';
 import { IngresoNewComponent } from './components/negocio/ingreso/ingreso-new/ingreso-new.component';
@@ -45,11 +47,19 @@ import { VentaComponent } from './components/negocio/venta/venta/venta.component
 import { VentaNewComponent } from './components/negocio/venta/venta-new/venta-new.component';
 import { VentaShowComponent } from './components/negocio/venta/venta-show/venta-show.component';
 
+
+import { PedidoClienteComponent } from './components/negocio/pedidoCliente/pedido-cliente/pedido-cliente.component';
+import { PedidoClienteCarritoComponent } from './components/negocio/pedidoCliente/pedido-cliente-carrito/pedido-cliente-carrito.component';
+import { PedidoClienteUserComponent } from './components/negocio/pedidoCliente/pedido-cliente-user/pedido-cliente-user.component';
+import { PedidoClienteShowComponent } from './components/negocio/pedidoCliente/pedido-cliente-show/pedido-cliente-show.component';
+
+
 import { ConfiguracionComponent } from './components/auxi/configuracion/configuracion/configuracion.component';
 import { ConfiguracionUpdateComponent } from './components/auxi/configuracion/configuracion-update/configuracion-update.component';
 import { MenupdfComponent } from './components/auxi/pdf/menupdf/menupdf.component';
 
 import { IdentityAdminGuard } from './guards/identity.admin.guard';
+import { IdentityClienteGuard } from './guards/identity.cliente.guard';
 
 import { ErrorComponent } from './components/auxi/error/error.component';
 
@@ -94,6 +104,16 @@ const appRoutes: Routes = [
   { path: 'logout/:sure',    component: LoginComponent },
   { path: 'usuariolog', component: UserloginshowComponent},
   { path: 'usuariochpass', component: UserloginupdatepassComponent},
+  { path: 'usuarioregistro', component: UserregisterComponent},
+
+
+
+  { path: 'pedidocliente',           component: PedidoClienteComponent , canActivate:[IdentityClienteGuard] },
+  { path: 'pedidoclientecarrito',           component: PedidoClienteCarritoComponent , canActivate:[IdentityClienteGuard] },
+  { path: 'mispedidos',           component: PedidoClienteUserComponent, canActivate:[IdentityClienteGuard] },
+  { path: 'verpedido/:id',           component: PedidoClienteShowComponent, canActivate:[IdentityClienteGuard] },
+  
+
 
   { path: 'ingreso',           component: IngresoComponent  },
   { path: 'nuevoingreso',      component: IngresoNewComponent  },

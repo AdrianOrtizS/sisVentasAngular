@@ -1,0 +1,100 @@
+
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h1 class="card-title">INFORMACION PEDIDO</h1>
+                <div class="form-group row">
+                    <div class="col-md-12 col-sm-12 col-lg-6 ml-2 mr-2 mt-1 mb-1">
+                        <strong>Nombre: </strong> 
+                            {{pedido.user}}
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-lg-6 ml-2 mr-2 mt-1 mb-1">
+                        <strong>Pedido #: </strong>
+                            {{pedido.numpedido}}
+                    </div>
+                    
+                    <div class="col-md-12 col-sm-12 col-lg-6 ml-2 mr-2 mt-1 mb-1">
+                        <strong>Fecha: </strong>
+                            {{pedido.fecha}}
+                    </div>
+                    
+                </div>
+
+                <div class="border-top my-3"></div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+
+                                <div class="col-md-12 ">
+                                    <div class="location-map" >
+                                        <div style="width: 100%; height: 300px;" id="map"> </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12  ">
+                                    <div class="location-map" >
+                                    <h3>Referencia de lugar</h3>
+                                    <textarea class="form-control"  #referencia="ngModel" [(ngModel)]="pedido.referencia" name="referencia"  rows="2"  required readonly > </textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <h2 class="mt-3">Detallede pedido</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+                    
+                        <tbody>
+                            <tr *ngFor="let det of detalles">
+                                <td>{{det.producto}}</td>
+                                <td>{{det.cantidad}}</td>
+                                <td>{{det.precio}}</td>
+                                <td>{{det.cantidad * det.precio | number : '1.2-2'}}</td>
+                            </tr>
+                        
+                            <tr style="background-color: #CEECF5;">
+                            <td colspan="3" align="right"><strong>Subtotal:</strong></td>
+                            <td>$ {{pedido.subtotal   | number : '1.2-2'}}</td>
+                            </tr>
+                            <tr style="background-color: #CEECF5;">
+                                <td colspan="3" align="right"><strong>Iva 0:</strong></td>
+                                <td>$ {{ pedido.iva0 | number : '1.2-2'}}</td>
+                            </tr>
+                            <tr style="background-color: #CEECF5;">
+                                <td colspan="3" align="right"><strong>Iva:</strong></td>
+                                <td>$ {{ pedido.iva | number : '1.2-2'}}</td>
+                            </tr>
+                            <tr style="background-color: #CEECF5;">
+                                <td colspan="3" align="right"><strong>Total:</strong></td>
+                                <td>$ {{ pedido.total  | number : '1.2-2' }}</td>
+                            </tr>
+                    
+                        </tbody>
+                    </table>
+
+
+                    <a [routerLink]="['/mispedidos']" class="btn btn-primary float-right">
+                        <i class="icon-arrow-left"></i>
+                    </a>
+              </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -29,8 +29,15 @@
             </small>
           </div>
           
-          <div class="mt-3">
-            <input type="submit" value="Iniciar session" class="btn btn-primary btn-lg font-weight-medium auth-form-btn" [disabled]="loginForm.invalid">
+          <div class="col-md-12 mt-3">
+
+            <div class="mt-3 ml-0 mr-0 col-md-6">
+              <input type="submit" value="Iniciar session" class="btn btn-primary btn-lg font-weight-medium  " [disabled]="loginForm.invalid">
+            </div>
+            <div class="mt-3 ml-o mr-0 col-md-6">
+              <a [routerLink]="['/usuarioregistro']"                 class="btn btn-light btn-lg font-weight-medium  mr-0" > Registrate !!</a>
+            </div>
+            
           </div>
         
         </form>

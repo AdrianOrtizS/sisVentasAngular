@@ -50,7 +50,18 @@ export class LoginComponent implements OnInit {
                           //persistir datos en el navegador
                           localStorage.setItem('token', this.token);
                           localStorage.setItem('identity', JSON.stringify(this.identity) );
-                          this._router.navigate(['/']);
+                         
+
+                          if(this.identity.role === 'Cliente' )
+                          {
+                            this._router.navigate(['mispedidos']); 
+                            console.log(this.identity.role);
+                          }
+                          else{
+                            this._router.navigate(['/']);
+                          }
+
+                          
                       },error => {
                         this.status ="error";
                         console.log(<any>error);
@@ -100,6 +111,7 @@ export class LoginComponent implements OnInit {
           if(logout == 1){
             localStorage.removeItem('identity');
             localStorage.removeItem('token');
+            localStorage.removeItem('prodselect');
             
             this._router.navigate(['login']);
           }

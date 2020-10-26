@@ -101,12 +101,13 @@ export class NotificacionesoComponent implements OnInit {
   notify() {
     const echo = new Echo({
       broadcaster: 'pusher',
-      key: 'ASDASD2121',
-      cluster: 'mt1',
-      wsPort: 6001,
-      wsHost: window.location.hostname,
-      disableStats: true,
-      enabledTransports: ['ws']
+      key: 'f07410509efd3d64852f',
+      cluster: 'us2',
+//      encrypted:true,
+      // wsPort: 6001,
+      // wsHost: window.location.hostname,
+      // disableStats: true,
+      // enabledTransports: ['ws']
     });
 
     echo.channel('channel-ingreso')

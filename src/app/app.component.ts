@@ -47,6 +47,7 @@ export class AppComponent implements OnInit, DoCheck{
   {
       this.title = 'App titttlllleeee';
       this.identity = this._userService.getIdentity();
+      
       this.token = this._userService.getToken();
       this.url = global.url;
       this.producto = Array<Producto>();
@@ -61,13 +62,14 @@ export class AppComponent implements OnInit, DoCheck{
   ngDoCheck(): void {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken(); 
-    
+    //console.log(this.identity);
   }
 
   isExpiredToken(){
     if(this.isExpired){
       localStorage.removeItem('identity');
       localStorage.removeItem('token');
+      localStorage.removeItem('prodselect');
       this._router.navigate(['login']);
     }
 

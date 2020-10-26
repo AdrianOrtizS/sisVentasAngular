@@ -4,7 +4,6 @@ import { routing, appRoutingProviders } from './app.routing';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-
 import "froala-editor/js/froala_editor.pkgd.min.js"; 
 import * as $ from 'jquery'; window["$"] = $; window["jQuery"] = $;
 import {DatePipe} from '@angular/common';
@@ -68,6 +67,18 @@ import { UsuarioService } from './services/usuario.service';
 import { ErrorComponent } from './components/auxi/error/error.component';
 import { ProductoStockminimoComponent } from './components/datos/producto/producto-stockminimo/producto-stockminimo.component';
 import { NotificacionesoComponent } from './components/auxi/menu/notificacioneso/notificacioneso.component';
+import { UserregisterComponent } from './components/auxi/login/userregister/userregister.component';
+import { PedidoClienteComponent } from './components/negocio/pedidoCliente/pedido-cliente/pedido-cliente.component';
+import { PedidoClienteCarritoComponent } from './components/negocio/pedidoCliente/pedido-cliente-carrito/pedido-cliente-carrito.component';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+//import { NgxStripeModule } from 'ngx-stripe';
+import { NgxStripeModule } from '@nomadreservations/ngx-stripe';
+import { PedidoClienteUserComponent } from './components/negocio/pedidoCliente/pedido-cliente-user/pedido-cliente-user.component';
+import { PedidoClienteShowComponent } from './components/negocio/pedidoCliente/pedido-cliente-show/pedido-cliente-show.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @NgModule({
   declarations: [
@@ -109,6 +120,12 @@ import { NotificacionesoComponent } from './components/auxi/menu/notificacioneso
     MenupdfComponent,
     ProductoStockminimoComponent,
     NotificacionesoComponent,
+    UserregisterComponent,
+    PedidoClienteComponent,
+    PedidoClienteCarritoComponent,
+    PedidoClienteUserComponent,
+    PedidoClienteShowComponent,
+    
     
   ],
   imports: [
@@ -119,7 +136,11 @@ import { NotificacionesoComponent } from './components/auxi/menu/notificacioneso
     FroalaEditorModule.forRoot(), 
     FroalaViewModule.forRoot(),
     AngularFileUploaderModule,
-    NgxPaginationModule 
+    NgxPaginationModule ,
+
+    ReactiveFormsModule,
+    NgxStripeModule.forRoot('pk_test_51HRO0REXjremU95CqWyyGJ6QConxAoAPy7ItwpIinfFbmiPsAkxc8xQVBY8AVUHQ5M1nsuHfEuFOJd28934CHgkm00znTVq5GV'),
+    NgSelectModule
   ],
   providers: [
     appRoutingProviders,

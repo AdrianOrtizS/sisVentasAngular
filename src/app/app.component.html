@@ -1,13 +1,13 @@
-<div class="container-scroller">
+<div class="container-scroller" >
   <!-- partial:partials/_navbar.html -->
   <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" *ngIf="identity">
     <div class="navbar-brand-wrapper d-flex align-items-center">
-      <a class="navbar-brand brand-logo" href="/">
+      <div class="navbar-brand brand-logo" >
         <img src="../assets/img/logo.svg" alt="logo" class="logo-dark" />
-      </a>
-      <a class="navbar-brand brand-logo-mini" href="/">
+      </div>
+      <div class="navbar-brand brand-logo-mini" >
         <img src="../assets/img/logo-mini.svg" alt="logo" />
-      </a>
+      </div>
     </div>
 
 
@@ -15,8 +15,11 @@
       <h5 class="mb-0 font-weight-medium d-none d-lg-flex">Bienvenido!</h5>
       <ul class="navbar-nav navbar-nav-right ml-auto">
         
-        <li class="nav-item"><a [routerLink]="['/']" class="nav-link"><i class="icon-chart"></i></a>
-        </li>
+        <div *ngIf="identity.role =='Administrador' || identity.role =='Vendedor' ">
+          <li class="nav-item"><a [routerLink]="['/']" class="nav-link"><i class="icon-chart"></i></a>
+          </li>
+        </div>
+        
         
 
         
@@ -73,12 +76,12 @@
 
 
   <!-- partial -->
-  <div class="container-fluid page-body-wrapper">
+  <div class="container-fluid page-body-wrapper" >
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar" *ngIf="identity">
       <ul class="nav">
         <li class="nav-item nav-profile" >
-          <a [routerLink]="['/']" class="nav-link">
+          <div class="nav-link">
             <div class="profile-image">
 
               <div *ngIf="identity.image">
@@ -96,74 +99,89 @@
               <p class="designation">{{identity.role}}</p>
             </div>
             
-          </a>
+          </div>
         </li>
       
-        <li class="nav-item nav-category">
+      
+        <div *ngIf="identity.role =='Administrador' || identity.role =='Vendedor' ">
+          <li class="nav-item nav-category">
             <a class="nav-link" [routerLink]="['/']"><span class="nav-link">Escritorio </span>
               <i class="icon-screen-desktop menu-icon"></i>
             </a>
         </li>
+        </div>
+        
       
-        <li class="nav-item nav-category"><span class="nav-link">Elementos</span></li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-            <span class="menu-title">Datos</span>
-            <i class="icon-layers menu-icon "></i>
-          </a>
-           <div class="collapse" id="ui-basic">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/tipoproducto']"> Tipo producto</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/producto']">     Producto</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/persona']">      Persona</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/proveedor']">      Proveedor</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/usuario']">      Usuario</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/configuracion']">      Configuracion</a></li>
-            </ul>
-          </div>
-        </li>
-
-
+        <div *ngIf="identity.role =='Administrador' || identity.role =='Vendedor' ">
+          <li class="nav-item nav-category"><span class="nav-link">Elementos</span></li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <span class="menu-title">Datos</span>
+              <i class="icon-layers menu-icon "></i>
+            </a>
+             <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/tipoproducto']"> Tipo producto</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/producto']">     Producto</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/persona']">      Persona</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/proveedor']">      Proveedor</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/usuario']">      Usuario</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/configuracion']">      Configuracion</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+              <span class="menu-title">Movimientos</span>
+              <i class="icon-basket menu-icon "></i>
+            </a>
+             <div class="collapse" id="ui-basic2">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/ingreso']"> Ingreso</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/venta']"> Venta</a></li>
+              </ul>
+            </div>
+          </li>
+        </div>
         
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
-            <span class="menu-title">Movimientos</span>
-            <i class="icon-basket menu-icon "></i>
-          </a>
-           <div class="collapse" id="ui-basic2">
-            <ul class="nav flex-column sub-menu">
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/ingreso']"> Ingreso</a></li>
-              <li class="nav-item"> <a class="nav-link" [routerLink]="['/venta']"> Venta</a></li>
-            </ul>
-          </div>
-        </li>
-        
 
 
-
-
-        <li class="nav-item nav-category"><span class="nav-link">Documentos</span></li>
-            <li class="nav-item">
-              <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                <span class="menu-title">PDF</span>
-                <i class="icon-doc menu-icon"></i>
-              </a>
-              <div class="collapse" id="auth">
-                <ul class="nav flex-column sub-menu">
-                  <li class="nav-item"> <a class="nav-link" [routerLink]="['/pdf']"> Reportes</a></li>
-                </ul>
-              </div>
-            </li>
-
+        <div *ngIf="identity.role =='Administrador' || identity.role =='Vendedor' ">
+          <li class="nav-item nav-category"><span class="nav-link">Documentos</span></li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <span class="menu-title">PDF</span>
+              <i class="icon-doc menu-icon"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/pdf']"> Reportes</a></li>
+              </ul>
+            </div>
+          </li>
+        </div>
             
-
-
-      
+        
+        <div *ngIf="identity.role =='Cliente' ">
+          <li class="nav-item nav-category" ><span class="nav-link">Arma tu pedido</span></li>
+          <li class="nav-item" >
+            <a class="nav-link" data-toggle="collapse" href="#pedido" aria-expanded="false" aria-controls="pedido">
+              <span class="menu-title">Pedido</span>
+              <i class="icon-cup menu-icon"></i>
+            </a>
+            <div class="collapse" id="pedido">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/mispedidos']"> Mis pedidos</a></li>
+                <li class="nav-item"> <a class="nav-link" [routerLink]="['/pedidocliente']"> Arma tu pedido</a></li>
+              
+              </ul>
+            </div>
+          </li>
+        </div>    
+            
+            
       </ul>
     </nav>
-
-
-
 
 
     <!-- partial -->

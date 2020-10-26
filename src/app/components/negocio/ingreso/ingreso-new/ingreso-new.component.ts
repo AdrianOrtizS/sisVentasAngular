@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Ingreso } from 'src/app/models/ingreso';
 import { IngresoService } from 'src/app/services/ingreso.service';
 import { Producto } from 'src/app/models/producto';
+import { Proveedor } from 'src/app/models/proveedor';
 import { ProveedorService } from 'src/app/services/proveedor.service';
+
 import { ProductoService } from 'src/app/services/producto.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { ConfiguracionService } from 'src/app/services/configuracion.service';
@@ -12,6 +14,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { NgSelectConfig } from '@ng-select/ng-select';
 
 
 @Component({
@@ -28,11 +31,14 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class IngresoNewComponent implements OnInit {
 
+
   public p: number;
   public status;
   public fecha;
   public producto ;
   public productos;
+  public proveedores;
+  
   public page_title:string;
   public url;
   public proveedor;
@@ -76,7 +82,8 @@ export class IngresoNewComponent implements OnInit {
         this.url = global.url;
         this.token = _userService.getToken();
         this.producto = new Producto('','','',0,0,'','',0,0,0);
-        this.ingreso = new Ingreso('',0,'','',1,1,1,'',0,[]);        //   this.detalleingreso = [];
+        this.ingreso = new Ingreso('','','','',1,1,1,'',0,[]);        //   this.detalleingreso = [];
+        this.proveedor = new Proveedor(1,'','','','','',1,'');
         this.validarproducto  =0;
         this.validarprecio    =0;
         this.validarcantidad  =0;
@@ -85,8 +92,10 @@ export class IngresoNewComponent implements OnInit {
         this.expirationDate = this.helper.getTokenExpirationDate(this.token);
         this.isExpired     = this.helper.isTokenExpired(this.token);
   
+
   }
 
+ 
 
   ngOnInit() {
     this.getproveedor();
@@ -276,7 +285,29 @@ export class IngresoNewComponent implements OnInit {
     );
   }
 
+  buscarproveedorombre(nombre, event){
+    event.preventDefault();
+    this._proveedorService.buscarproveedornombre(nombre).subscribe(
+      response =>{
+        
+        this.proveedores = response.Proveedor;
+     
+//        console.log(response);
+      },error=>{
+        console.log(error.status);
+        if(error.status == 404){
+     //     this.producto.nombre ="No hay el producto";
+        }
+      }
+    );
+  }
 
+
+  agregarProveedorModal(prov){
+//    console.log(prov.nombre);
+    this.proveedor = prov;
+    this.ingreso.idproveedor = this.proveedor.id;
+  }
 
   
   agregarDetalleModal(pro){
@@ -307,12 +338,12 @@ export class IngresoNewComponent implements OnInit {
     this._proveedorService.getproveedor().subscribe(
       response =>{
         this.proveedor = response.Proveedor;
+     //   console.log(response);
       },error=>{
         console.log(error);
       }
     );
   }
-
 
 
 }
